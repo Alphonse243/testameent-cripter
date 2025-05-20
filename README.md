@@ -1,9 +1,10 @@
-# Déchiffrer un testament crypté
+# Déchiffrer mon testament crypté
 
 ## Prérequis
 
 - PHP avec l’extension OpenSSL activée
 - Le fichier `testament.txt` généré par l’application
+- connaissance en PHP pour exécuter ce code
 
 ## Étapes pour déchiffrer le message
 
@@ -18,11 +19,15 @@
 ## Sécurité
 
 - Les réponses aux questions sont stockées chiffrées dans `testament.txt`.
-- La clé de déchiffrement du message est la concaténation exacte des trois réponses.
-- Le secret utilisé pour chiffrer les réponses (`questions-secret`) doit rester dans le code et ne pas être partagé.
+- Deux personnes sont nécessaires pour déchiffré le message, ils seront en contact au moment idéal.
 
 ## Utilisation sur un autre ordinateur
 
 - Copiez le dossier de l’application et le fichier `testament.txt` sur l’autre ordinateur.
 - Suivez les mêmes étapes ci-dessus pour déchiffrer le message.
 
+## Autre 
+
+Les deux personnes qui vont déchiffrer mon message doivent respecté notre compromis, s'ils meurent avant moi il doivent laisser la réponse de ces questions au personne qui peuvent les remplacer 
+
+MERCI 🙏
