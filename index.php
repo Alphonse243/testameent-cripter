@@ -1,7 +1,6 @@
 <?php
 $filename = __DIR__ . '/testament.txt';
 
-// Fonction utilitaire pour chiffrer/déchiffrer une réponse
 function encrypt_answer($answer, $secret) {
     $key = hash('sha256', $secret);
     $ivlen = openssl_cipher_iv_length('AES-256-CBC');
@@ -18,32 +17,25 @@ function decrypt_answer($encrypted, $secret) {
     return openssl_decrypt($ciphertext, 'AES-256-CBC', $key, 0, $iv);
 }
 
-$answer_secret = 'questions-secret'; // À garder secret dans le code
+$answer_secret = 'questions-secret'; 
 
 if (isset($_POST['save'])) {
-    // Récupérer les questions et le message
     $q1 = $_POST['q1'] ?? '';
     $q2 = $_POST['q2'] ?? '';
     $q3 = $_POST['q3'] ?? '';
     $message = $_POST['message'] ?? '';
 
-    // Chiffrer les réponses
     $ea1 = encrypt_answer($_POST['a1'], $answer_secret);
     $ea2 = encrypt_answer($_POST['a2'], $answer_secret);
     $ea3 = encrypt_answer($_POST['a3'], $answer_secret);
 
-    // Générer la clé à partir des réponses
     $key = hash('sha256', $_POST['a1'] . $_POST['a2'] . $_POST['a3']);
 
-    // Chiffrer le message
     $ivlen = openssl_cipher_iv_length('AES-256-CBC');
     $iv = openssl_random_pseudo_bytes($ivlen);
     $encrypted = openssl_encrypt($message, 'AES-256-CBC', $key, 0, $iv);
 
-    // Encoder IV + message chiffré pour stockage
     $output = base64_encode($iv . $encrypted);
-
-    // Stocker dans un fichier (questions + réponses chiffrées + message chiffré)
     $data = [
         'q1' => $q1,
         'q2' => $q2,
@@ -61,7 +53,6 @@ if (isset($_POST['save'])) {
     }
 }
 
-// Lecture du fichier pour affichage/déchiffrement
 $filedata = null;
 if (file_exists($filename)) {
     $filedata = json_decode(file_get_contents($filename), true);
