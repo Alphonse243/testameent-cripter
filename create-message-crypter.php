@@ -90,43 +90,49 @@ if (isset($_POST['decrypt']) && $filedata) {
 </head>
 <body>
 <div class="container">
+    <h1>Testament Crypté</h1>
     <div class="form-section">
-        <h5 class="mb-3">Déchiffrer un testament depuis le fichier</h5>
-        <?php if ($decrypted !== ''): ?>
-            <div class="mt-4">
-                <h6>Message déchiffré :</h6>
-                <textarea rows="5" class="form-control" readonly><?= htmlspecialchars($decrypted) ?></textarea>
-                <?php if ($decrypted === false): ?>
-                    <div class="alert alert-danger">Erreur : Mauvaises réponses ou texte corrompu.</div>
-                <?php endif; ?>
+        <h5 class="mb-3">Créer et sauvegarder un testament</h5>
+        <form method="post" autocomplete="off">
+            <input type="hidden" name="save" value="1">
+            <div class="mb-3">
+                <label>Question 1 :</label>
+                <input type="text" name="q1" class="form-control" required placeholder="Ex: Où nous sommes-nous rencontrés ?">
             </div>
+            <div class="mb-3">
+                <label>Réponse 1 :</label>
+                <input type="text" name="a1" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Question 2 :</label>
+                <input type="text" name="q2" class="form-control" required placeholder="Ex: Prénom de mon ex-copine ?">
+            </div>
+            <div class="mb-3">
+                <label>Réponse 2 :</label>
+                <input type="text" name="a2" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Question 3 :</label>
+                <input type="text" name="q3" class="form-control" required placeholder="Ex: Nom film préféré ?">
+            </div>
+            <div class="mb-3">
+                <label>Réponse 3 :</label>
+                <input type="text" name="a3" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Message du testament :</label>
+                <textarea name="message" rows="5" class="form-control" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Sauvegarder le testament crypté</button>
+        </form>
+        <?php if (!empty($error)): ?>
+            <div class="alert alert-danger"><?= htmlspecialchars($error) ?></div>
         <?php endif; ?>
-        <?php if ($filedata): ?>
-            <form method="post" autocomplete="off">
-                <input type="hidden" name="decrypt" value="1">
-                <div class="mb-3">
-                    <label><?= htmlspecialchars($filedata['q1']) ?></label>
-                    <input type="text" name="a1" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label><?= htmlspecialchars($filedata['q2']) ?></label>
-                    <input type="text" name="a2" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label><?= htmlspecialchars($filedata['q3']) ?></label>
-                    <input type="text" name="a3" class="form-control" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Déchiffrer</button>
-            </form>
-            
-            <div class="mt-4">
-                <h6>Testament crypté (copiez ce texte pour l'utiliser ailleurs) :</h6>
-                <textarea rows="5" class="form-control" readonly><?= htmlspecialchars($filedata['encrypted']) ?></textarea>
-            </div>
-        <?php else: ?>
-            <div class="alert alert-warning">Aucun testament sauvegardé pour le moment.</div>
+        <?php if (!empty($saved)): ?>
+            <div class="alert alert-success">Testament sauvegardé dans le fichier <code>testament.txt</code></div>
         <?php endif; ?>
     </div>
+
 </div>
 
 <script>
