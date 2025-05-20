@@ -106,15 +106,15 @@ if (isset($_POST['decrypt']) && $filedata) {
                 <input type="hidden" name="decrypt" value="1">
                 <div class="mb-3">
                     <label><?= htmlspecialchars($filedata['q1']) ?></label>
-                    <input type="text" name="a1" class="form-control" required>
+                    <input type="text" name="a1" class="form-control"  placeholder="En minuscule" required>
                 </div>
                 <div class="mb-3">
                     <label><?= htmlspecialchars($filedata['q2']) ?></label>
-                    <input type="text" name="a2" class="form-control" required>
+                    <input type="text" name="a2" class="form-control" placeholder="En minuscule" required>
                 </div>
                 <div class="mb-3">
                     <label><?= htmlspecialchars($filedata['q3']) ?></label>
-                    <input type="text" name="a3" class="form-control" required>
+                    <input type="text" name="a3" class="form-control" placeholder="En minuscule" required>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Déchiffrer</button>
             </form>
